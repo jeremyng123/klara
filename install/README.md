@@ -73,7 +73,8 @@ mysql klara < db_schema.sql
 
 Install the packages needed to run Dispatcher:
 ```
-sudo apt -y install python-virtualenv libmysqlclient-dev python-dev git
+sudo apt -y install libmysqlclient-dev python-dev-is-python2
+python2 -m pip install virtualenv
 ```
 
 We recommend running dispatcher on a non-privileged user. Create an user which will be responsible to run Worker as well as Dispatcher:
