@@ -234,7 +234,7 @@ Copy Worker's files to the newly created folder and install python dependencies:
 cp -R ~/klara-github-repo/worker /var/projects/klara/worker/
 cd /var/projects/klara/worker/
 cp config-sample.py config.py
-source ~/klara-github-repo/install/activate.sh
+. ~/env/bin/activate
 pip install -r ~/klara-github-repo/install/requirements.txt
 ```
 
@@ -281,7 +281,7 @@ Once the settings are set, you can check Worker is working by running the follow
 ```
 sudo su projects
 # We want to enable the virtualenv
-source  ~/klara-github-repo/install/activate.sh
+. ~/env/bin/activate
 cd /var/projects/klara/worker/
 chmod u+x ./klara-worker
 ./klara-worker
