@@ -80,7 +80,7 @@ mysql klara < db_schema.sql
 
 Install the packages needed to run Dispatcher:
 ```
-sudo apt -y install libmysqlclient-dev python-dev-is-python2
+sudo apt -y install libmysqlclient-dev python-dev-is-python2 python2.7-dev default-libmysqlclient-dev build-essential
 python2 -m pip install virtualenv
 ```
 
