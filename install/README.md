@@ -187,7 +187,7 @@ In order to insert a new API key to be used by a KLara worker, a new row needs t
 
 ```
 mysql > use klara;
-mysql > INSERT INTO projetcs value ("","description here", "API auth code here");
+mysql > INSERT INTO projects value ("","description here", "API auth code here");
 ```
 
 ## Installing the Worker agent
