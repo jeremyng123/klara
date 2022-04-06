@@ -73,7 +73,7 @@ GRANT ALL PRIVILEGES ON `klara`.* TO 'klara'@'%';
 Once Dispatcher and Web Interfaces are set-up and configured to point to DB, the SQL DB needs to be created. Please run the SQL statements from [db_patches/db_schema.sql](db_patches/db_schema.sql) location:
 
 ```
-mysql klara < db_schema.sql
+mysql -u klara -p klara < db_schema.sql
 ```
 
 ## Dispatcher installation
