@@ -130,12 +130,6 @@ pip install -r ~/klara-github-repo/install/requirements.txt
 Now fill in the settings in config.py:
 
 ```
-# Setup the loglevel
-logging_level  = "debug"
-
-# What port should Dispatchers's REST API should listen to
-listen_port = 8888
-
 # Main settings for the master
 # Set debug lvl
 logging_level  = "debug"
@@ -144,18 +138,15 @@ logging_level  = "debug"
 listen_port = 8888
 
 # Notification settings
-# Do we want to sent out notification e-mails or not?
 notification_email_enabled  = True
-# FROM SMTP header settings
 notification_email_from     = "klara-notify@example.com"
-# SMTP server address
 notification_email_smtp_srv = "127.0.0.1"
 
 # MySQL / MariaDB settings for the Dispatcher to connect to the DB
 mysql_host      = "127.0.0.1"
-mysql_database  = "kl-klara"
-mysql_user      = "root"
-mysql_password  = ""
+mysql_database  = "klara"
+mysql_user      = "klara"
+mysql_password  = "{pass12345}"
 ```
 Once settings are set, you can check Dispatcher is working by running the following commands:
 ```
@@ -175,6 +166,7 @@ In order to start Dispatcher automatically at boot, please check [Supervisor ins
 
 Next step would be starting Dispatcher using `supervisorctl`:
 ```
+sudo apt install supervisor
 sudo supervisorctl update
 sudo supervisorctl start klara_dispatcher
 ```
