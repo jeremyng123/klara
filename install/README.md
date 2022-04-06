@@ -107,7 +107,7 @@ su projects
 mkdir /var/projects/klara/ -p
 mkdir /var/projects/klara/logs/
 # Create the virtual-env
-virtualenv ~/.virtualenvs/klara
+virtualenv ~/klara/env
 ```
 
 Clone the repository:
@@ -121,7 +121,7 @@ Copy Dispatcher's files and install python dependencies:
 cp -R ~/klara-github-repo/dispatcher /var/projects/klara/dispatcher/
 cd /var/projects/klara/dispatcher/
 cp config-sample.py config.py
-source ~/klara-github-repo/install/activate.sh
+. ~/env/bin/activate
 sudo wget https://raw.githubusercontent.com/paulfitz/mysql-connector-c/master/include/my_config.h -O /usr/include/mysql/my_config.h
 pip install -r ~/klara-github-repo/install/requirements.txt
 ```
@@ -152,7 +152,7 @@ Once settings are set, you can check Dispatcher is working by running the follow
 ```
 sudo su projects
 # We want to enable the virtualenv
-source  ~/klara-github-repo/install/activate.sh
+. ~/env/bin/activate
 cd /var/projects/klara/dispatcher/
 chmod u+x ./klara-dispatcher
 ./klara-dispatcher
@@ -220,7 +220,7 @@ su projects
 mkdir /var/projects/klara/ -p
 mkdir /var/projects/klara/logs/
 # Create the virtual-env
-virtualenv ~/.virtualenvs/klara
+python2 -m virtualenv ~/klara/env
 ```
 
 Clone the repository:

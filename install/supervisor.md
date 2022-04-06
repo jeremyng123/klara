@@ -10,7 +10,7 @@ folder for `supervisord` (usually `/etc/supervisor/conf.d`) as `klara.conf`.
 # Supervisor settings for Dispatcher
 ```
 [program:klara_dispatcher]
-command=/home/projects/.virtualenvs/klara/bin/python klara-dispatcher
+command=/home/projects/env/klara/bin/python klara-dispatcher
 directory=/var/projects/klara/dispatcher
 user=projects
 autostart=true
@@ -23,7 +23,7 @@ stderr_logfile=/var/projects/klara/logs/dispatcher.err
 
 ```
 [program:klara_worker1]
-command=/home/projects/.virtualenvs/klara/bin/python klara-worker
+command=/home/projects/env/klara/bin/python klara-worker
 directory=/var/projects/klara/worker
 user=projects
 autostart=true
@@ -37,7 +37,7 @@ same `klara-worker` command
 
 ```
 [program:klara_worker2]
-command=/home/projects/.virtualenvs/klara/bin/python klara-worker
+command=/home/projects/env/klara/bin/python klara-worker
 directory=/var/projects/klara/worker
 user=projects
 autostart=true
@@ -47,7 +47,7 @@ stderr_logfile=/var/projects/klara/logs/worker2.err
 
 
 [program:klara_worker3]
-command=/home/projects/.virtualenvs/klara/bin/python klara-worker
+command=/home/projects/env/klara/bin/python klara-worker
 directory=/var/projects/klara/worker
 user=projects
 autostart=true
