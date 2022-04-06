@@ -174,7 +174,7 @@ sudo nano /etc/supervisor/supervisord.conf
 Replace the configuration file with this content; change where necessary, of course:
 
 ```
- supervisor config file
+; supervisor config file
 
 [unix_http_server]
 file=/var/run/supervisor.sock   ; (the path to the socket file)
