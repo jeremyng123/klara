@@ -59,13 +59,13 @@ To create a new DB user, allowing access to `klara` database, for any hosts, ide
 CREATE DATABASE klara;
 
 ```
-~~`CREATE USER 'klara'@'127.0.0.1' IDENTIFIED BY 'pass12345';`~~  
-~~`GRANT USAGE ON *.* TO 'klara'@'127.0.0.1' IDENTIFIED BY 'pass1345' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;`~~  
+~~`CREATE USER 'klara'@'12.0.1' IDENTIFIED BY 'pass12345';`~~  
+~~`GRANT USAGE ON *.* TO 'klara'@'12.0.1' IDENTIFIED BY 'pass1345' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;`~~  
 ```
 CREATE USER 'klara'@'%' IDENTIFIED BY 'pass12345' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;
-CREATE USER 'klara'@'127.0.0.1' IDENTIFIED BY 'pass12345' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;
+CREATE USER 'klara'@'12.0.1' IDENTIFIED BY 'pass12345' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;
 CREATE USER 'klara'@'localhost' IDENTIFIED BY 'pass12345' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;
-GRANT ALL PRIVILEGES ON `klara`.* TO 'klara'@'127.0.0.1';
+GRANT ALL PRIVILEGES ON `klara`.* TO 'klara'@'12.0.1';
 GRANT ALL PRIVILEGES ON `klara`.* TO 'klara'@'localhost';
 GRANT ALL PRIVILEGES ON `klara`.* TO 'klara'@'%';
 ```
@@ -140,10 +140,10 @@ listen_port = 8888
 # Notification settings
 notification_email_enabled  = True
 notification_email_from     = "klara-notify@example.com"
-notification_email_smtp_srv = "127.0.0.1"
+notification_email_smtp_srv = "12.0.1"
 
 # MySQL / MariaDB settings for the Dispatcher to connect to the DB
-mysql_host      = "127.0.0.1"
+mysql_host      = "12.0.1"
 mysql_database  = "klara"
 mysql_user      = "klara"
 mysql_password  = "{pass12345}"
@@ -250,7 +250,7 @@ logging_level  = "debug"
 
 # Api location for Dispatcher. No trailing slash !!
 # Dispatcher is exposing the API at "/api/" location
-api_location = "http://127.0.0.1:8888/api"
+api_location = "http://12.0.1:8888/api"
 # The API key set up in the `agents` SQL table
 api_key      = "test"
 
@@ -384,8 +384,44 @@ Requirements for installing web interface are:
 - web server running at least PHP 5.6
 - the following php7 extensions:
 
+> Before following the below steps, make sure to install the following libraries first!:
+
 ```
-apt install php7.0-fpm php7.0 php7.0-mysqli php7.0-curl php7.0-gd php7.0-intl php-pear php-imagick php7.0-imap php7.0-mcrypt php-memcache  php7.0-pspell php7.0-recode php7.0-sqlite3 php7.0-tidy php7.0-xmlrpc php7.0-xsl php7.0-mbstring php-gettext php-apcu
+sudo apt install -y build-essential
+sudo apt install php php-pear php-dev libmcrypt-dev
+```
+
+> Confirm that we have the following binaries installed by performing the following commands:
+
+```
+gcc --version
+make --version
+which pecl 
+```
+
+
+```
+apt install php-fpm php php-mysqli php-curl php-gd php-intl php-pear php-imagick php-imap php-memcache php-pspell php-sqlite3 php-tidy php-xmlrpc php-xsl php-mbstring php-apcu
+```
+
+> the following libraries need to be installed using `pecl`: `php-mcrypt`, `php-recode`, `php-gettext`  
+> Update pecl channels:
+
+```
+sudo pecl channel-update pecl.php.net
+sudo pecl update-channels
+```
+
+> Search for the missing libraries mentioned previous
+
+```
+sudo pecl search mcrypt
+```
+
+> Install these libraries
+
+```
+sudo pecl install mcrypt
 ```
 
 Once you have this installed, copy `/web/` folder to the HTTP server document root. Update and rename the following sample files:
@@ -397,9 +433,9 @@ Once you have this installed, copy `/web/` folder to the HTTP server document ro
 You must configure the `base_url`, `encryption_key` from `config.php` as well as respective settings in `database.php` & `project_settings.php` .
 More info about this here:
 
-- https://www.codeigniter.com/user_guide/installation/upgrade_303.html
-- https://codeigniter.com/user_guide/libraries/encryption.html
-- https://www.codeigniter.com/user_guide/database/configuration.html
+- https://www.codeigniter.com/userguide3/installation/upgrade_303.html
+- https://codeigniter.com/userguide3/libraries/encryption.html
+- https://www.codeigniter.com/userguide3/database/configuration.html
 - https://www.nginx.com/resources/wiki/start/topics/recipes/codeigniter/ (The correct nginx configuration for codeigniter)
 
 For your convenience, 2 `users`, 2 `groups` and 2 `scan repositories` have been created:
