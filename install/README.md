@@ -122,8 +122,10 @@ cp -R ~/klara-github-repo/dispatcher /var/projects/klara/dispatcher/
 cd /var/projects/klara/dispatcher/
 cp config-sample.py config.py
 source ~/klara-github-repo/install/activate.sh
+sudo wget https://raw.githubusercontent.com/paulfitz/mysql-connector-c/master/include/my_config.h -O /usr/include/mysql/my_config.h
 pip install -r ~/klara-github-repo/install/requirements.txt
 ```
+* `sudo wget...` line command above was a fix to a problem where config.h is missing. THe solution is found [here](https://askubuntu.com/questions/1324362/pip-install-mysql-python-not-working-on-ubuntu-20-04)
 
 Now fill in the settings in config.py:
 
