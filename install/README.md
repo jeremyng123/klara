@@ -164,9 +164,55 @@ If everything went well, you should see:
 
 In order to start Dispatcher automatically at boot, please check [Supervisor installation](supervisor.md)
 
-Next step would be starting Dispatcher using `supervisorctl`:
+Next step would be starting Dispatcher using `supervisorctl`. Before we do this step, make sure we have supervisor installed first; if not, `sudo apt install -y supervisor`
+
+Next, we need to prepare the configurations of supervisord.
 ```
-sudo apt install supervisor
+sudo nano /etc/supervisor/supervisord.conf
+```
+
+Replace the configuration file with this content; change where necessary, of course:
+
+```
+ supervisor config file
+
+[unix_http_server]
+file=/var/run/supervisor.sock   ; (the path to the socket file)
+;chmod=0700                       ; sockef file mode (default 0700)
+chmod=0777
+
+[supervisord]
+logfile=/var/log/supervisor/supervisord.log ; (main log file;default $CWD/supervisord.log)
+pidfile=/var/run/supervisord.pid ; (supervisord pidfile;default supervisord.pid)
+childlogdir=/var/log/supervisor            ; ('AUTO' child log dir, default $TEMP)
+
+; the below section must remain in the config file for RPC
+; (supervisorctl/web interface) to work, additional interfaces may be
+; added by defining them in separate rpcinterface: sections
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
+[supervisorctl]
+serverurl=unix:///var/run/supervisor.sock ; use a unix:// URL  for a unix socket
+
+; The [include] section can just contain the "files" setting.  This
+; setting can list multiple files (separated by whitespace or
+; newlines).  It can also contain wildcards.  The filenames are
+; interpreted as relative to this file.  Included files *cannot*
+; include files themselves.
+
+[include]
+files = /etc/supervisor/conf.d/*.conf
+
+[program:dispatcher]
+directory=/home/gen123/Documents/klara_proj
+command=source /home/gen123/Documents/klara_proj/env/bin/activate && python /home/gen123/Documents/klara_proj/dispatcher/klara-dispatcher
+autostart=true
+autorestart=true
+stopsignal=QUIT
+```
+
+```
 sudo supervisorctl update
 sudo supervisorctl start klara_dispatcher
 ```
